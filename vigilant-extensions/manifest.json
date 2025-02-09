@@ -1,0 +1,26 @@
+{
+    "manifest_version": 3,
+    "name": "Vigilant-AI",
+    "version": "1.0",
+    "description": "Fact-check text and detect AI-generated images",
+    "permissions": ["storage", "activeTab", "scripting","contextMenus"],
+    "host_permissions": ["http://127.0.0.1:5000/*", "http://127.0.0.1:5001/*"],
+    "background": {
+    "service_worker": "background.js"
+    },
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "icon.png",
+            "32": "icon.png",
+            "48": "icon.png",
+            "128": "icon.png"
+        }
+    },
+    "icons": {
+    "16": "icon.png",
+    "32": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+}
+}
