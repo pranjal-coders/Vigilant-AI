@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦇Vigilant-AI</title>
+    <style>
+
+body { 
+    background-color: #0a192f; 
+    color: #e0e0e0; 
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+h2 { 
+    font-size: 2.5rem; 
+    margin-bottom: 20px; 
+    animation: fadeIn 1.5s ease-in-out;
+    color: #64ffda;
+}
+
+/* Container with Flexbox */
+#container { 
+    display: flex; 
+    justify-content: space-around; 
+    align-items: flex-start; 
+    flex-wrap: wrap; 
+    margin: auto; 
+    max-width: 90%; 
+    padding: 20px;
+    animation: slideUp 1.2s ease-in-out;
+}
+
+/* Fact & Image Sections */
+.section {
+    background: rgba(17, 34, 64, 0.8); 
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 20px rgba(0, 255, 255, 0.3);
+    width: 40%;
+    min-width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 25px rgba(0, 255, 255, 0.5);
+}
+
+/* Input and Button Styling */
+input, button { 
+    margin: 10px; 
+    padding: 12px; 
+    border-radius: 8px; 
+    border: none;
+    width: 90%;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+input {
+    background: #1b2a41; 
+    color: white; 
+    border: 2px solid #64ffda;
+    text-align: center;
+}
+
+input:focus {
+    outline: none;
+    border-color: #00e1ff;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+}
+
+button { 
+    background: #64ffda; 
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+    background: #00e1ff;
+    transform: scale(1.05);
+    box-shadow: 0px 4px 15px rgba(0, 255, 255, 0.7);
+}
+
+/* History Section */
+.history { 
+    background: rgba(27, 42, 65, 0.9); 
+    padding: 15px; 
+    border-radius: 10px;
+    margin-top: 30px;
+    width: 80%;
+    margin: auto;
+    animation: fadeIn 1.8s ease-in-out;
+}
+
+.history h3 {
+    color: #64ffda;
+}
+
+.history-item { 
+    padding: 10px; 
+    background: #112240; 
+    border-radius: 5px; 
+    margin: 5px 0; 
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+.history img {
+    max-width: 100%;
+    width: 200px;
+    border-radius: 8px;
+    margin-top: 5px;
+}
+
+.clear-history {
+    background: #ff4c4c;
+    margin-top: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.clear-history:hover {
+    background: #ff2020;
+    transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    #container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .section {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+}
+.file-input-wrapper {
+position: relative;
+display: inline-block;
+width: 90%;
+text-align: center;
+}
+
+.file-input {
+opacity: 0;
+position: absolute;
+width: 100%;
+height: 100%;
+cursor: pointer;
+}
+
+.custom-file-button {
+display: inline-block;
+background: linear-gradient(135deg, #00e1ff, #64ffda);
+color: #0a192f;
+padding: 12px;
+font-size: 1rem;
+border-radius: 8px;
+font-weight: bold;
+text-align: center;
+width: 100%;
+cursor: pointer;
+transition: all 0.3s ease-in-out;
+border: none;
+box-shadow: 0px 4px 10px rgba(0, 255, 255, 0.3);
+}
+
+.custom-file-button:hover {
+background: linear-gradient(135deg, #64ffda, #00e1ff);
+transform: scale(1.05);
+box-shadow: 0px 6px 15px rgba(0, 255, 255, 0.7);
+}
+
+/* Image Preview */
+.image-preview-container {
+    margin-top: 15px;
+    display: none;
+    text-align: center;
+}
+
+.image-preview {
+    max-width: 100%;
+    width: 200px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0px 3px 10px rgba(0, 255, 255, 0.4);
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Display selected file name */
+.file-name {
+margin-top: 10px;
+font-size: 1rem;
+font-weight: bold;
+color: #64ffda;
+background: rgba(10, 25, 47, 0.7);
+padding: 5px 10px;
+border-radius: 5px;
+display: inline-block;
+box-shadow: 0px 3px 5px rgba(0, 255, 255, 0.3);
+}
+
+
+.drop-zone {
+    border: 2px dashed #64ffda;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 10px;
+    transition: background 0.3s ease-in-out;
+}
+
+.drop-zone:hover {
+    background: rgba(100, 255, 218, 0.1);
+}
+
+.drop-zone.active {
+    background: rgba(100, 255, 218, 0.3);
+}
+</style>
+</head>
+<body>
+    <h2>🦇 Vigilant-AI</h2>
+
+    <div id="container">
+        <!-- Fact Checking Section (Left) -->
+        <div class="section">
+            <h3>📜 Fact Checking</h3>
+            <input type="text" id="claim" placeholder="Enter a fact to verify...">
+            <button id="checkFactBtn">Check Fact</button>
+            <p id="factResult"></p>
+        </div>
+
+        <!-- Image Analyzing Section (Right) -->
+        <div class="section">
+            <h3>🖼️ Image Fake Detection</h3>
+            
+            <!-- Custom File Input -->
+            <div class="file-input-wrapper">
+                <div id="dropZone" class="drop-zone">Drag & Drop an image here or click to upload</div>
+                <input type="file" id="imageUpload" class="file-input" onchange="updateFileNameAndPreview()">
+            </div>
+            
+            <p id="fileName" class="file-name" style="display: none;"></p> <!-- Display selected file name -->
+
+            <!-- Image Preview -->
+            <div id="imagePreviewContainer" style="display: none;" class="image-preview-container">
+                <img id="imagePreview" src="" alt="Selected Image" class="image-preview">
+            </div>
+        
+            <button onclick="checkImage()">Analyze Image</button>
+            <p id="imageResult"></p>
+        </div>
+    </div>
+
+    <!-- History Section -->
+    <div class="history">
+        <h3>📂 Analysis History</h3>
+        <div id="historyList"></div>
+        <button class="clear-history" onclick="clearHistory()">Clear History</button>
+    </div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    setupDragAndDrop(); // Enable drag-and-drop
+
+});
+
+
+
+// ✅ FETCH SOURCES (Wikipedia & News)
+async function fetchSources(query) {
+    let sourcesHTML = "<br><strong> Related Sources:</strong><br>";
+
+    try {
+        let wikiUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(query)}&format=json&origin=*`;
+        let wikiResponse = await fetch(wikiUrl);
+        let wikiData = await wikiResponse.json();
+
+        if (wikiData.query.search.length > 0) {
+            let wikiTitle = wikiData.query.search[0].title;
+            let wikiLink = `https://en.wikipedia.org/wiki/${encodeURIComponent(wikiTitle)}`;
+            sourcesHTML += `<a href="${wikiLink}" target="_blank"> Wikipedia: ${wikiTitle}</a><br>`;
+        }
+    } catch (error) {
+        console.error("Wikipedia API Error:", error);
+    }
+
+    let newsSearchLink = `https://news.google.com/search?q=${encodeURIComponent(query)}`;
+    sourcesHTML += `<a href="${newsSearchLink}" target="_blank"> Google News: ${query}</a>`;
+
+    return sourcesHTML;
+}
+
+
+// ✅ FACT CHECKING FUNCTION (With Wikipedia & News References)
+document.getElementById("checkFactBtn").addEventListener("click", async function () {
+    let claim = document.getElementById("claim").value.trim();
+    if (!claim) {
+        alert("Enter a fact to check!");
+        return;
+    }
+    document.getElementById("factResult").innerHTML = " Checking...";
+
+    try {
+        let response = await fetch(`http://127.0.0.1:5000/check_fact?claim=${encodeURIComponent(claim)}`);
+        let data = await response.json();
+
+        let factResult = `<strong>Result:</strong> ${data.analysis}`;
+        
+        // Fetch Wikipedia & Google News sources
+        let references = await fetchSources(claim);
+        
+        document.getElementById("factResult").innerHTML = factResult + references;
+
+        // Save fact check result in history
+        updateHistory(data.analysis);
+        updateHistory({ type: "Fact", result: data.analysis, references, confidence: "N/A" });
+    } catch (error) {
+        document.getElementById("factResult").innerHTML = " Error: Unable to connect to server.";
+    }
+});
+
+
+// ✅ Enable Drag & Drop for Image Uploads
+function setupDragAndDrop() {
+    let dropZone = document.getElementById("dropZone");
+    let fileInput = document.getElementById("imageUpload");
+
+    // Clicking on drop zone opens file input
+    dropZone.addEventListener("click", () => fileInput.click());
+
+    // Prevent default behaviors
+    ["dragover", "dragleave", "drop"].forEach(eventName => {
+        dropZone.addEventListener(eventName, (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+        });
+    });
+
+    // Highlight when dragging over
+    dropZone.addEventListener("dragover", () => dropZone.classList.add("active"));
+
+    // Remove highlight when leaving
+    dropZone.addEventListener("dragleave", () => dropZone.classList.remove("active"));
+
+    // Handle dropped file
+    dropZone.addEventListener("drop", (event) => {
+        dropZone.classList.remove("active");
+
+        let files = event.dataTransfer.files;
+        if (files.length > 0) {
+            fileInput.files = files; // Assign dropped file to input
+            previewImage(files[0]); // Show preview
+        }
+    });
+
+    // Handle file input change (when user selects manually)
+    fileInput.addEventListener("change", function () {
+        if (fileInput.files.length > 0) {
+            previewImage(fileInput.files[0]); // Show preview
+        }
+    });
+}
+
+
+function updateFileNameAndPreview() {
+    const fileInput = document.getElementById("imageUpload");
+    const fileNameDisplay = document.getElementById("fileName");
+    const imagePreview = document.getElementById("imagePreview");
+    const imagePreviewContainer = document.getElementById("imagePreviewContainer");
+    if (fileInput.files.length) {
+    const file = fileInput.files[0];
+
+    // Show file name
+    fileNameDisplay.innerText = `📂 Selected: ${file.name}`;
+    fileNameDisplay.style.display = "block";
+
+    // Display image preview
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        imagePreview.src = e.target.result;
+        imagePreviewContainer.style.display = "block"; // Show the container
+    };
+    reader.readAsDataURL(file);
+    } else {
+        fileNameDisplay.style.display = "none";
+        imagePreviewContainer.style.display = "none";
+    }
+}
+
+function updateHistory(entry) {
+    let history = JSON.parse(localStorage.getItem("history")) || [];
+    history.unshift(entry); // Add new entry at the top
+    localStorage.setItem("history", JSON.stringify(history));
+    displayHistory();
+}
+
+function displayHistory() {
+    let historyList = document.getElementById("historyList");
+    historyList.innerHTML = "";
+    let history = JSON.parse(localStorage.getItem("history")) || [];
+
+    history.forEach(item => {
+        let div = document.createElement("div");
+        div.classList.add("history-item");
+        div.innerHTML = `<strong>${item.type}:</strong> ${item.result} (Confidence: ${item.confidence}%)`;
+        if (item.image) div.innerHTML += `<br><img src="${item.image}" alt="History Image">`;
+        historyList.appendChild(div);
+    });
+}
+
+function clearHistory() {
+    localStorage.removeItem("history");
+    displayHistory();
+}
+
+// async function checkFact() {
+//     const claim = document.getElementById("claim").value;
+//     if (!claim) { alert("Enter a fact to check!"); return; }
+
+//     document.getElementById("factResult").innerHTML = "Checking...";
+//     const response = await fetch(`http://127.0.0.1:5000/check_fact?claim=${encodeURIComponent(claim)}`);
+//     const data = await response.json();
+
+//     document.getElementById("factResult").innerHTML = `<strong>Result:</strong> ${data.analysis}`;
+//     updateHistory({ type: "Fact", result: data.analysis, confidence: "N/A" });
+// }
+
+async function checkImage() {
+    const imageFile = document.getElementById("imageUpload").files[0];
+    if (!imageFile) { alert("Upload an image!"); return; }
+
+    let formData = new FormData();
+    formData.append("file", imageFile);
+
+    document.getElementById("imageResult").innerHTML = "Analyzing...";
+    const response = await fetch("http://127.0.0.1:5001/analyze-image", { method: "POST", body: formData });
+    const data = await response.json();
+
+    document.getElementById("imageResult").innerHTML = `<strong>Result:</strong> ${data.result} <br> Confidence: ${data.confidence}%`;
+    updateHistory({ type: "Image", result: data.result, confidence: data.confidence });
+}
+
+displayHistory();
+</script>
+</body>
+</html>
